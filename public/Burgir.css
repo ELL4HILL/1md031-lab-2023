@@ -25,6 +25,7 @@ header {
     width: 100%; 
     height: 100%;
     opacity: 0.25;
+    z-index: -1;
   }
 
   h1 {
@@ -62,7 +63,7 @@ section {
   }
 */
  .glutenklass {
-    color: red;
+  font-weight: bolder;
  }
 
  .orderInfo {
@@ -82,3 +83,11 @@ section {
     cursor:pointer;
  }
 
+
+
+
+ @media screen and (max-width: 800px) {
+  h1 {
+      font-size: 6vw;
+  }
+}
