@@ -33,19 +33,6 @@ header {
     color: w;
   }
 
-.wrapper {
-  display: grid;
-  grid-gap: 22em;
-  grid-template-columns: 1px 1px 1px;
-}
-
-.box {
-  background-color: #f0e3e9;
-  color: rgb(0, 0, 0);
-  border-radius: 50px;
-  padding: 20px;
-  width: 12em;
-}
 
 section {
     margin: 50px 50px 50px 100px;
@@ -53,15 +40,6 @@ section {
     padding-left: 35px;
   }
 
-  /*div {
-    margin: 50px 50px  ;
-    padding: 10px;
-  }
-
-  div[id] {
-    margin-left: 110px;
-  }
-*/
  .glutenklass {
   font-weight: bolder;
  }

@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html lang="en">
+   <head>
+        <link rel="stylesheet" type="text/css" href="Burgir.css">
+        <title>BURGIR</title>
+       <meta charset="utf-8"/>
+   </head>
+   <body>
+    <header>
+        <h1>WELCOME TO MAMAS BURGERS</h1>
+        <img src="https://img.freepik.com/premium-vector/fast-food-background-linear-graphic-snack-collection-junk-food-engraved-top-view-illustration-vector-illustration_91128-1528.jpg" class="header-img")>
+     </header>
+    <main>
+    <section>
+        <h2>Select burger</h2>
+        <p>Choose what type of burger you want to order</p>
+        <div class="wrapper">
+        <div class="box Bubbi" style= "display: inline-block" ;>
+            <h3>BUBBIburger</h3>
+            <img src="https://i.redd.it/g5eothuisxl11.jpg" alt="Span" width= "200" height="250">
+            <ul>
+            <li>MUMsigt bröd?</li>
+            <li class="glutenklass" > gluten </li>
+                <dd>Det är <span class="glutenklass"> gluten </span> i brödet</dd>
+            <li>inge bacon</li>
+            </ul>
+        </div>
+        <div class="box Mummi" style= "display: inline-block";>
+            <h3>MUMMIburger</h3>
+            <img src="https://d104wv11b7o3gc.cloudfront.net/wp-content/uploads/2016/07/low-carb-steakhouse-burger-recipe-5.jpg" alt="Span" width= "200" height="250">
+            <ul>
+            <li>inget bröd</li>
+            <li>inget <span class="glutenklass"> gluten</span></li>
+                <dd>kalorisnålt</dd>
+            <li>bacon</li>
+            </ul>
+        </div>
+        <div class="box Tripple" style= "display: inline-block" id="tb";>
+            <h3>TRIPPLEburger</h3>
+            <img src="https://www.thecookierookie.com/wp-content/uploads/2018/07/butter-burgers-recipe-8-of-8.jpg" alt="Span" width= "200" height="250">
+            <ul>
+            <li>tre burgare</li>
+            <li class="glutenklass">gluten</li>
+                <dd>inte kalorisnålt</dd>
+                <li>bacon</li>
+            </ul>
+            </div>
+        </div>
+         </section>
+         <section class="orderInfo">
+            <h2>Order information</h2>
+            <p>Insert order information</p>
+            <p>
+                <label for="fullname">Full name</label><br>
+                <input type="text" id="fullname" name="fn" required="required" placeholder="First- and Last name">
+            </p>
+            <p>
+                <label for="street">Street </label><br>
+                <input type="text" id="street" name="s" placeholder="Street name">
+            </p>
+            <p>
+                <label for="housenumber">House</label><br>
+                <input type="number" id="housenumber" name="hn" placeholder="House number">
+            </p>
+            <p>
+                <label for="email">Email</label><br>
+                <input type="email" id="email" name="em" required="required" placeholder="E-mail address">
+            </p>
+            <p>
+                <label for="Payment method">Payment</label><br>
+                <select id="payment" name="pm">
+                    <option>Swish</option>
+                    <option>Faktura</option>
+                    <option>Kort</option>
+                </select>
+             </p>
+             <p>
+                <label for="gender">Gender</label><br>
+                <input type="radio" id="genderChoice1" name="g" value="male" checked="checked">
+                <label for="genderChoice1">Male</label> <br>
+                <input type="radio" id="genderChoice2" name="g" value="female"> 
+                <label for="genderChoice1">Female</label> <br>
+                <input type="radio" id="genderChoice3" name="g" value="other"> 
+                <label for="genderChoice1">do not whish to provide</label><br>
+         </section>
+         <button type="submit">
+            <img src="https://strictlytoolboxes.com/wp-content/uploads/2021/11/placeorder.png" width= "100" height="100">
+            PLACE ORDER
+          </button>
+    </main>
+    <hr>
+    <footer>
+    &copy;2010bipomama
+    </footer>
+   </body>
+</html>
+
