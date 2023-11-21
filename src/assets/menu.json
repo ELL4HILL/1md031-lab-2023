@@ -1,8 +1,8 @@
 [
     {
         "name": "MummiBurger",
-        "img": "https://i.redd.it/g5eothuisxl11.jpg",
-        "kCal": 300,
+        "imageURL": "https://i.redd.it/g5eothuisxl11.jpg",
+        "kcal": 300,
         "lactose": true,
         "gluten": true
         
@@ -10,17 +10,18 @@
     
     {
         "name": "BubbiBurger",
-        "img": "https://d104wv11b7o3gc.cloudfront.net/wp-content/uploads/2016/07/low-carb-steakhouse-burger-recipe-5.jpg",
-        "kCal": 250,
+        "imageURL": "https://d104wv11b7o3gc.cloudfront.net/wp-content/uploads/2016/07/low-carb-steakhouse-burger-recipe-5.jpg",
+        "kcal": 250,
         "lactose": true,
         "gluten": false
     }, 
 
     {
         "name": "TrippleBurger",
-        "img": "https://www.thecookierookie.com/wp-content/uploads/2018/07/butter-burgers-recipe-8-of-8.jpg",
-        "kCal": 850,
+        "imageURL": "https://www.thecookierookie.com/wp-content/uploads/2018/07/butter-burgers-recipe-8-of-8.jpg",
+        "kcal": 850,
         "lactose": true,
         "gluten": true
     }
   ]
+

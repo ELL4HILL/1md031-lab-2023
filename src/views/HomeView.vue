@@ -9,7 +9,10 @@
         <h2>Select burger</h2>
         <p>Choose what type of burger you want to order</p>
           <div class="wrapper">
-          <OneBurger v-for="burger in menuItems" :key="burger.name" :burger="burger" />
+          <OneBurger v-for="burger in menuItems"
+                    v-bind:burger="burger" 
+                    v-bind:key="burger.name"
+                    v-on:orderedBurger="addToOrder($event)"/>
           </div>
          </section>
          <section class="orderInfo">
@@ -17,23 +20,15 @@
             <p>Insert order information</p>
             <p>
                 <label for="fullname">Full name</label><br>
-                <input type="text" id="fullname" name="fn" required="required" placeholder="First- and Last name">
-            </p>
-            <p>
-                <label for="street">Street </label><br>
-                <input type="text" id="street" name="s" placeholder="Street name">
-            </p>
-            <p>
-                <label for="housenumber">House</label><br>
-                <input type="number" id="housenumber" name="hn" placeholder="House number">
+                <input type="text" id="fullname" v-model="fullName" required="required" placeholder="First- and Last name">
             </p>
             <p>
                 <label for="email">Email</label><br>
-                <input type="email" id="email" name="em" required="required" placeholder="E-mail address">
+                <input type="email" id="email" v-model="emailAdress" required="required" placeholder="E-mail address">
             </p>
             <p>
                 <label for="Payment method">Payment</label><br>
-                <select id="payment" name="pm">
+                <select id="payment" v-model="paymentMethod">
                     <option>Swish</option>
                     <option>Faktura</option>
                     <option>Kort</option>
@@ -41,23 +36,28 @@
              </p>
              <p>
                 <label for="gender">Gender</label><br>
-                <input type="radio" id="genderChoice1" name="g" value="male" checked="checked">
+                
+                <input type="radio" id="genderChoice1" v-model="g" value="male" checked="checked" name="gender">  
                 <label for="genderChoice1">Male</label> <br>
-                <input type="radio" id="genderChoice2" name="g" value="female"> 
-                <label for="genderChoice1">Female</label> <br>
-                <input type="radio" id="genderChoice3" name="g" value="other"> 
-                <label for="genderChoice1">do not whish to provide</label><br>
+                
+                <input type="radio" id="genderChoice2" v-model="g" value="female" name="gender"> 
+                <label for="genderChoice2">Female</label> <br>
+                
+                <input type="radio" id="genderChoice3" v-model="g" value="other" name="gender"> 
+                <label for="genderChoice3">do not wish to provide</label><br>
                 </p>
          </section>
-    <div id="map" v-on:click="addOrder">
-      click here
+    <div class="mapdiv">
+    <div id="map" v-on:click="setLocation">  
+      <div v-bind:style="{ left: location.x + 'px', top: location.y + 'px' }" >
+        T
+      </div>
+    </div>
     </div>
   <input type="text" v-bind:value="yourVariable" v-on:input="yourVariable = $event.target.value">
 <div>
-  {{ yourVariable }}
-  {{menu}}
 </div>
-         <button type="submit">
+            <button v-on:click="markDone(fullName, emailAdress, paymentMethod, g)">
             <img src="https://strictlytoolboxes.com/wp-content/uploads/2021/11/placeorder.png" width= "100" height="100">
             PLACE ORDER
           </button>
@@ -69,15 +69,16 @@
   </div>
 </template>
 
+
 <script>
+import menu from '../assets/menu.json'
 import OneBurger from '../components/OneBurger.vue'
-import menu from '.../assets/menu.json'
 import io from 'socket.io-client'
 
 
 const socket = io();
 
-function MenuItem(name, imageURL, kcal, lactose, gluten) { //hur är det med booleans...?
+/* function MenuItem(name, imageURL, kcal, lactose, gluten) { //hur är det med booleans...?
   this.name=name;
   this.imageURL=imageURL;
   this.kcal=kcal;
@@ -89,8 +90,11 @@ const burger1 = new MenuItem("MummiBurger", "https://i.redd.it/g5eothuisxl11.jpg
 const burger2 = new MenuItem("BubbiBurger", "https://d104wv11b7o3gc.cloudfront.net/wp-content/uploads/2016/07/low-carb-steakhouse-burger-recipe-5.jpg", 250, true, false);
 const burger3 = new MenuItem("TrippleBurger", "https://www.thecookierookie.com/wp-content/uploads/2018/07/butter-burgers-recipe-8-of-8.jpg", 800, true, true);
 
-const menuItems = []
-menuItems.push(burger1,burger2, burger3);
+*/
+
+
+
+const menuItems = menu
 
 export default {
   name: 'HomeView',
@@ -100,14 +104,43 @@ export default {
   data: function () {
     return {
       menuItems,
-      yourVariable: ""
+      yourVariable: "",
+      orderedBurgers:{},
+      location: { x: 0,
+                  y: 0
+                  }
+                
     }
   },
   methods: {
+    markDone: function (fullName, emailAdress, paymentMethod, g) {
+      this.fullName=fullName;
+      this.emailAdress=emailAdress;
+      this.paymentMethod=paymentMethod;
+      this.g=g;
+      console.log(fullName, emailAdress, paymentMethod, g);
+      
+      socket.emit("addOrder", { orderId: this.getOrderNumber(),
+                          details: {  x: this.location.x,
+                                      y: this.location.y},
+                          orderItems: ["Beans", "Curry"]//blir en uppsättning av key-value pairs
+      
+      }
+      );    
+    },
+
+    addToOrder: function (event) {
+    this.orderedBurgers[event.name] = event.amount;
+    console.log(event.name)
+    console.log(event.amount)
+    console.log(this.orderedBurgers)
+    },
+
     getOrderNumber: function () {
       return Math.floor(Math.random()*100000);
     },
-    addOrder: function (event) {
+    
+    /*addOrder: function (event) {
       var offset = {x: event.currentTarget.getBoundingClientRect().left,
                     y: event.currentTarget.getBoundingClientRect().top};
       socket.emit("addOrder", { orderId: this.getOrderNumber(),
@@ -116,8 +149,16 @@ export default {
                                 orderItems: ["Beans", "Curry"]
                               }
                  );
+    }, 
+    */
+
+    setLocation: function (event){
+      var offset = {x: event.currentTarget.getBoundingClientRect().left,
+                    y: event.currentTarget.getBoundingClientRect().top};
+      this.location.x = event.clientX - 10 - offset.x;
+      this.location.y = event.clientY - 10 - offset.y;
     }
-  }
+}
 }
 </script>
 
@@ -125,16 +166,35 @@ export default {
 
 
 <style>
-  #map {
-    width: 300px;
-    height: 300px;
-    background-color: red;
+
+.mapdiv {
+  margin: 50px 50px 50px 225px;
+  overflow: auto; 
+  height: 500px; 
+  width: 1000px;
+}
+
+#map {
+  width: 1920px;
+  height: 1078px; /* Uppdatera kartans höjd för att passa den yttre containern */
+  background: url('../../public/img/polacks.jpg');
+}
+
+
+  #map div {
+    position: relative;
+    background: black;
+    color: white;
+    border-radius: 10px;
+    width:20px;
+    height:20px;
+    text-align: center;
   }
+
+
 
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap');
 
-
-  
 
 header {
     margin: 50px 50px 50px 100px;

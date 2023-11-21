@@ -6,9 +6,16 @@
       <li> {{burger.kcal}} kalorier </li>
       <li v-if="burger.lactose">Innehåller laktos</li>
       <li v-if="burger.gluten" >Innehåller <span class="glutenklass"> gluten </span> </li>
-      <!-- Andra detaljer om burgaren beroende på dess egenskaper -->
+      antal beställda burgare: {{amountOrdered}}
+          <button class="burgerButton" v-on:click="increaseOrder()">
+            Add burger
+          </button>
+
+          <button class="burgerButton" v-on:click="decreaseOrder()">
+            Remove burger
+          </button>
     </ul>
-  </div>
+    </div>
 </template>
 
   //  
@@ -18,8 +25,32 @@
     name: 'OneBurger',
     props: {
       burger: Object
+    },
+
+    data: function () {
+  return {
+    amountOrdered: 0,
+  } 
+  },
+  methods: {
+    increaseOrder() {
+      this.amountOrdered++
+      this.$emit('orderedBurger', { name:   this.burger.name, 
+                                    amount: this.amountOrdered} );
+    }, 
+
+    decreaseOrder() {
+      if (this.amountOrdered>0)
+      (this.amountOrdered--)
+      this.$emit('orderedBurger', { name:   this.burger.name, 
+                                    amount: this.amountOrdered} );
     }
+
   }
+  
+}
+
+  
   </script>
   
   <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -36,6 +67,16 @@
  .glutenklass {
   font-weight: bolder;
  }
+
+   .wrapper {
+  display: grid;
+  grid-gap: 22em;
+  grid-template-columns: 1px 1px 1px;
+}
+
+.burgerButton {
+  margin: 0em 0em 0em 0em; 
+}
   </style>
   
 
