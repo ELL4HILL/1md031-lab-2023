@@ -179,7 +179,7 @@ export default {
 
 #map {
   width: 1920px;
-  height: 1078px; /* Uppdatera kartans höjd för att passa den yttre containern */
+  height: 1078px; 
   background: url('../../public/img/polacks.jpg');
 }
 
@@ -206,8 +206,7 @@ header {
     height: 100vh;
     font-size: 60 pt;
     text-align: center;
-    position: relative; /* Lägg till position: relative för att .header-img ska positionera sig inuti detta element */
-
+    position: relative; 
   }
 
   .header-img {
