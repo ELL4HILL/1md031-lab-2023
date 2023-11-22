@@ -3,16 +3,16 @@
     <h3> {{ burger.name }}</h3>
     <img :src="burger.imageURL" width="200" height="250">
     <ul>
-      <li> {{burger.kcal}} kalorier </li>
-      <li v-if="burger.lactose">Innehåller laktos</li>
-      <li v-if="burger.gluten" >Innehåller <span class="glutenklass"> gluten </span> </li>
-      antal beställda burgare: {{amountOrdered}}
+      <li> {{burger.kcal}} calories </li>
+      <li v-if="burger.lactose">contains <span class="allergiklass"> lactose </span> </li>
+      <li v-if="burger.gluten" >contains <span class="allergiklass"> gluten </span> </li>
+      <p> Ordered: {{amountOrdered}} </p>
           <button class="burgerButton" v-on:click="increaseOrder()">
-            Add burger
-          </button>
+            +
+           </button>
 
           <button class="burgerButton" v-on:click="decreaseOrder()">
-            Remove burger
+            -          
           </button>
     </ul>
     </div>
@@ -64,7 +64,7 @@
   width: 12em;
 }
 
- .glutenklass {
+ .allergiklass {
   font-weight: bolder;
  }
 
@@ -75,7 +75,9 @@
 }
 
 .burgerButton {
-  margin: 0em 0em 0em 0em; 
+  margin: 1em; 
+  width: 5em;
+  height: 5em;
 }
   </style>
   

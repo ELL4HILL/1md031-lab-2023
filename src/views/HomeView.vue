@@ -44,9 +44,12 @@
                 <label for="genderChoice2">Female</label> <br>
                 
                 <input type="radio" id="genderChoice3" v-model="g" value="other" name="gender"> 
-                <label for="genderChoice3">do not wish to provide</label><br>
+                <label for="genderChoice3">Other</label><br>
                 </p>
          </section>
+         <div id="locationSelect">
+    <h2>Choose location</h2>
+      </div>
     <div class="mapdiv">
     <div id="map" v-on:click="setLocation">  
       <div v-bind:style="{ left: location.x + 'px', top: location.y + 'px' }" >
@@ -54,11 +57,10 @@
       </div>
     </div>
     </div>
-  <input type="text" v-bind:value="yourVariable" v-on:input="yourVariable = $event.target.value">
 <div>
 </div>
-            <button v-on:click="markDone(fullName, emailAdress, paymentMethod, g)">
-            <img src="https://strictlytoolboxes.com/wp-content/uploads/2021/11/placeorder.png" width= "100" height="100">
+            <button id="markDoneButton" v-on:click="markDone(fullName, emailAdress, paymentMethod, g)">
+            <img src="https://strictlytoolboxes.com/wp-content/uploads/2021/11/placeorder.png" width= "200" height="200">
             PLACE ORDER
           </button>
     </main>
@@ -123,17 +125,18 @@ export default {
       socket.emit("addOrder", { orderId: this.getOrderNumber(),
                           details: {  x: this.location.x,
                                       y: this.location.y},
-                          orderItems: ["Beans", "Curry"]//blir en uppsättning av key-value pairs
-      
+                                      fullName: this.fullName,
+                                      emailAdress: this.emailAdress,
+                                      paymentMethod: this.paymentMethod,
+                                      g: this.g,
+                          orderItems: Object.entries(this.orderedBurgers)
       }
       );    
     },
 
     addToOrder: function (event) {
     this.orderedBurgers[event.name] = event.amount;
-    console.log(event.name)
     console.log(event.amount)
-    console.log(this.orderedBurgers)
     },
 
     getOrderNumber: function () {
@@ -252,6 +255,16 @@ section {
     background-color:pink ;
     cursor:pointer;
  }
+
+#markDoneButton {
+  align-self: center;
+  margin-left: 50em;
+  }
+
+
+#locationSelect {
+  margin-left: 28em;
+}
 
 
  @media screen and (max-width: 800px) {
